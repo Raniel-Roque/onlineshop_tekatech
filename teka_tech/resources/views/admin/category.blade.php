@@ -35,6 +35,14 @@
         .input_color{
             color:black;
         }
+
+        .center {
+          margin:auto;
+          width:50%;
+          text-align:center;
+          margin-top:30px;
+          border:2px red solid;
+        }
     </style>
 </head>
   <body>
@@ -48,6 +56,12 @@
         <!-- partial -->
         <div class="main-panel">
             <div class="content-wrapper">
+                @if(session()->has('message'))
+                  <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{session()->get('message')}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                @endif
                 <div class="div_center">
                     <h2 class="h2_font">Add Category</h2>
                     <form action="{{url('/add_category')}}" method="POST">
@@ -56,6 +70,19 @@
                         <input type="submit" value="Add Category" name="submit" class="btn btn-primary">
                     </form>
                 </div>
+
+                <table class="center">
+                  <tr>
+                    <th>Category Name</th>
+                    <th>Action</th>
+                  </tr>
+                  @foreach ($data as $data)
+                  <tr>
+                    <td>{{$data->category_name}}</td>
+                    <td><a href="{{url('delete_category', $data->id)}}" onclick="return confirm('Are you sure you want to delete this data?')" class="btn btn-danger">Delete</a></td>
+                  </tr>
+                  @endforeach
+                </table>
             </div>
         </div>
         <!-- main-panel ends -->
