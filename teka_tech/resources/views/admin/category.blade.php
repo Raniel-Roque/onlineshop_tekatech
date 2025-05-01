@@ -45,7 +45,7 @@
         }
     </style>
 </head>
-  <body>
+  <body class="sidebar-icon-only">
     <div class="container-scroller">
       <!-- partial:partials/_sidebar.html -->
       @include('admin.sidebar');
