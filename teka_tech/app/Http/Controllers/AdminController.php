@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Product;
+
 
 class AdminController extends Controller
 {
@@ -24,5 +26,27 @@ class AdminController extends Controller
         $data = category::find($id);
         $data->delete();
         return redirect()->back()->with('message', 'Category deleted succesfully');
+    }
+
+    public function view_product(){
+        $category = category::all();
+        return view('admin.product', compact('category'));
+    }
+
+    public function add_product(Request $request) {
+        $product = new product;
+        $product-> product_name = $request->product_name;
+        $product-> price = $request->price;
+        $product-> description = $request->description;
+        $product-> category = $request->category;
+        $product-> discounted_price = $request->discounted_price;
+
+        $image = $request->image;
+        $imagename = time(). '.' .$image-> getClientOriginalExtension();
+        $request->image->move('product', $imagename);
+        $product-> image = $imagename;
+
+        $product-> save();
+        return redirect()->back()->with('message', 'Product added succesfully');
     }
 }
