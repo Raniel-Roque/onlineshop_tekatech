@@ -60,7 +60,7 @@
         .th-deg {
             padding:30px
         }
-        
+
         label {
             display:inline-block;
             width:200px;
@@ -94,6 +94,7 @@
                             <th class="th-deg">Description</th>
                             <th class="th-deg">Price</th>
                             <th class="th-deg">Discounted Price</th>
+                            <th class="th-deg" colspan=2>Action</th>
                         </tr>
                         @foreach($product as $product)
                             <tr>
@@ -103,6 +104,12 @@
                                 <td>{{$product->description}}</td>
                                 <td>{{$product->price}}</td>
                                 <td>{{$product->discounted_price}}</td>                                    
+                                <td>
+                                    <a href="" class="btn btn-primary">Edit</a>
+                                </td>
+                                <td>
+                                    <a href="{{url('/delete_product', $product->id)}}" class="btn btn-danger">Delete</a>
+                                </td>
                             </tr>
                         @endforeach
                     </table>
