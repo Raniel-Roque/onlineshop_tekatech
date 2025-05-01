@@ -5,123 +5,107 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Teka Tech Admin</title>
-    <!-- plugins:css -->
+    
+    <!-- Plugins CSS -->
     <link rel="stylesheet" href="admin/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="admin/assets/vendors/css/vendor.bundle.base.css">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
     <link rel="stylesheet" href="admin/assets/vendors/jvectormap/jquery-jvectormap.css">
     <link rel="stylesheet" href="admin/assets/vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="admin/assets/vendors/owl-carousel-2/owl.carousel.min.css">
     <link rel="stylesheet" href="admin/assets/vendors/owl-carousel-2/owl.theme.default.min.css">
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
     <link rel="stylesheet" href="admin/assets/css/style.css">
-    <!-- End layout styles -->
     <link rel="shortcut icon" href="admin/assets/images/favicon.png" />
+    
+    <!-- Custom Styles -->
     <style type="text/css">
-        .div_center{
-            text-align:center;
-            padding-top:40px;
+        .custom-table-hover tbody tr {
+            background-color: #191c24 !important;
+            color: white !important;
         }
 
-        .h2_font{
-            font-size:40px;
-            padding-bottom:40px;
+        .custom-table-hover tbody tr:hover {
+            background-color: #2c2e33 !important;
+            color: white !important;
         }
 
-        .input_color{
-            color:black;
+        .table-cell-ellipsis {
+            max-width: 300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
-        .center {
-          margin:auto;
-          width:50%;
-          text-align:center;
-          margin-top:30px;
-          border:2px red solid;
-        }
-
-        .div-design {
-            padding-bottom: 15px;
-        }
-
-        .image-size {
-            width:150px; 
-            height:150px;
-        }
-
-        .th_color {
-            background:skyblue;
-        }
-        
-        .th-deg {
-            padding:30px
-        }
-
-        label {
-            display:inline-block;
-            width:200px;
+        .btn-custom {
+            padding: 0.5rem 1rem;
+            border: none;
         }
     </style>
-</head>
-<body class="sidebar-icon-only">
+  </head>
+  <body class="sidebar-icon-only">
     <div class="container-scroller">
-      <!-- partial:partials/_sidebar.html -->
-      @include('admin.sidebar');
-      <!-- partial -->
+      @include('admin.sidebar')
       <div class="container-fluid page-body-wrapper">
-        <!-- partial:partials/_navbar.html -->
-        @include('admin.header');
-        <!-- partial -->
+        @include('admin.header')
         <div class="main-panel">
-            <div class="content-wrapper">
-                @if(session()->has('message'))
-                  <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{session()->get('message')}}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                  </div>
-                @endif
-                <div class="div_center">
-                    <h2 class="h2_font">Manage Product</h2>
-                    <table class="center">
-                        <tr class="th_color">
-                            <th class="th-deg">Image</th>
-                            <th class="th-deg">ID</th>
-                            <th class="th-deg">Product Name</th>
-                            <th class="th-deg">Description</th>
-                            <th class="th-deg">Price</th>
-                            <th class="th-deg">Discounted Price</th>
-                            <th class="th-deg" colspan=2>Action</th>
-                        </tr>
-                        @foreach($product as $product)
+          <div class="content-wrapper">
+            @if(session()->has('message'))
+              <div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
+                {{ session()->get('message') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            @endif
+
+            <div class="row">
+              <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h2 class="card-title text-center mb-4" style="font-size: 1.5rem; font-weight: 500; color: #6c7293;">Manage Products</h2>
+                    <div class="table-responsive">
+                      <table class="table custom-table-hover">
+                        <thead>
                             <tr>
-                                <td><img class="image-size" src="product/{{$product->image}}" alt="{{$product->product_name}}"></td>
-                                <td>{{$product->id}}</td>
-                                <td>{{$product->product_name}}</td>
-                                <td>{{$product->description}}</td>
-                                <td>{{$product->price}}</td>
-                                <td>{{$product->discounted_price}}</td>                                    
-                                <td>
-                                    <a href="{{url('update_product', $product->id)}}" class="btn btn-primary">Edit</a>
-                                </td>
-                                <td>
-                                    <a href="{{url('delete_product', $product->id)}}" onclick="return confirm('Are you sure you want to delete {{$product->product_name}}')" class="btn btn-danger">Delete</a>
-                                </td>
+                                <th class="text-center text-muted border-bottom">Image</th>
+                                <th class="text-center text-muted border-bottom">ID</th>
+                                <th class="text-center text-muted border-bottom">Product Name</th>
+                                <th class="text-center text-muted border-bottom">Description</th>
+                                <th class="text-center text-muted border-bottom">Category</th>
+                                <th class="text-center text-muted border-bottom">Price</th>
+                                <th class="text-center text-muted border-bottom">Discounted Price</th>
+                                <th class="text-center text-muted border-bottom" colspan="2">Action</th>
                             </tr>
-                        @endforeach
-                    </table>
+                        </thead>
+                        <tbody>
+                          @foreach($product as $product)
+                            <tr>
+                              <td class="text-center">
+                                <img src="product/{{$product->image}}" alt="{{$product->product_name}}" class="img-fluid rounded" style="width: 100px; height: 100px; object-fit: cover;">
+                              </td>
+                              <td class="text-center">{{$product->id}}</td>
+                              <td class="text-center">{{$product->product_name}}</td>
+                              <td class="text-start table-cell-ellipsis">{{$product->description}}</td>
+                              <td class="text-center">{{$product->categoryRelation->category_name}}</td>
+                              <td class="text-start">${{ number_format($product->price, 2) }}</td>
+                              <td class="text-start">${{ number_format($product->discounted_price, 2) }}</td>
+                              <td class="text-center" colspan="2">
+                                <div class="d-flex justify-content-center">
+                                  <a href="{{ url('update_product', $product->id) }}" class="btn btn-primary btn-custom me-2" style="background: #0090e7;">Edit</a>
+                                  <a href="{{ url('delete_product', $product->id) }}" onclick="return confirm('Are you sure you want to delete {{$product->product_name}}?')" class="btn btn-danger btn-custom" style="background: #dc3545;">Delete</a>
+                                </div>
+                              </td>
+                            </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
+
+          </div>
         </div>
-        <!-- main-panel ends -->
       </div>
-      <!-- page-body-wrapper ends -->
     </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
     @include('admin.script')
   </body>
 </html>
