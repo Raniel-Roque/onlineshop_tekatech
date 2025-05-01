@@ -49,4 +49,9 @@ class AdminController extends Controller
         $product-> save();
         return redirect()->back()->with('message', 'Product added succesfully');
     }
+
+    public function manage_product() {
+        $product = product::all();
+        return view('admin.manageproduct', compact('product'));
+    }
 }
