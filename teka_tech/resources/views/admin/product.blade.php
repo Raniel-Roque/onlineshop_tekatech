@@ -51,6 +51,24 @@
             display:inline-block;
             width:200px;
         }
+        /* Remove number input spinners */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+        /* Hide placeholder option in dropdown */
+        select option[value=""][disabled] {
+            display: none;
+            color: #6c7293;
+        }
+        /* Style for the placeholder text when no option is selected */
+        select:invalid {
+            color: #6c7293;
+        }
     </style>
 </head>
     <body class="sidebar-icon-only">
@@ -64,48 +82,60 @@
         <!-- partial -->
         <div class="main-panel">
             <div class="content-wrapper">
-                @if(session()->has('message'))
-                  <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{session()->get('message')}}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                  </div>
-                @endif
-                <div class="div_center">
-                    <h2 class="h2_font">Add Product</h2>
-                    <form action="{{url('/add_product')}}" method="POST" enctype="multipart/form-data">
-                        @csrf    
-                        <div class="div-design">
-                            <label for="product_name">Product Name</label>
-                            <input class="input_color" type="text" name="product_name" id="product_name" placeholder="Name of Product">
+                <div class="row">
+                    <div class="col-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="card-title text-center mb-4" style="font-size: 1.5rem; font-weight: 500; color: #6c7293;">Create New Product</h2>
+                                @if(session()->has('message'))
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        {{session()->get('message')}}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                @endif
+                                <form class="forms-sample" action="{{url('/add_product')}}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label for="product_name">Product Name</label>
+                                        <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Enter product name" style="background: #191c24; color: white;">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="price">Regular Price</label>
+                                        <input type="number" class="form-control" id="price" name="price" placeholder="Enter regular price" style="background: #191c24; color: white;">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="discounted_price">Discounted Price</label>
+                                        <input type="number" class="form-control" id="discounted_price" name="discounted_price" placeholder="Enter discounted price" style="background: #191c24; color: white;">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Product Description</label>
+                                        <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter detailed product description" style="background: #191c24; color: white; border: 1px solid #6c7293;"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="category">Product Category</label>
+                                        <select class="form-control" id="category" name="category" style="background: #191c24; color: #6c7293; border: 1px solid #6c7293;" required>
+                                            <option value="" disabled selected>Choose a Category</option>
+                                            @foreach($category as $category)
+                                                <option value="{{$category->id}}" style="color: white;">{{$category->category_name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Product Image</label>
+                                        <input type="file" name="image" class="file-upload-default" style="background: #191c24; color: white;">
+                                        <div class="input-group col-xs-12">
+                                            <input type="text" class="form-control file-upload-info" disabled placeholder="Upload product image" style="background: #191c24; color: white;">
+                                            <span class="input-group-append">
+                                                <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary me-2">Add Product</button>
+                                    <button class="btn btn-light">Cancel</button>
+                                </form>
+                            </div>
                         </div>
-                        <div class="div-design">
-                            <label for="price">Product Price</label>
-                            <input class="input_color" type="number" name="price" id="price" placeholder="Price of Product">
-                        </div>
-                        <div class="div-design">
-                            <label for="discounted_price">Product Discounted Price</label>
-                            <input class="input_color" type="number" name="discounted_price" id="discounted_price" placeholder="Discounted Price of Product">
-                        </div>
-                        <div class="div-design">
-                            <label for="description">Product Description</label>
-                            <input class="input_color" type="text" name="description" id="description" placeholder="Description of Product">
-                        </div>
-                        <div class="div-design">
-                            <label for="category">Product Category</label>
-                            <select class="input_color" name="category" id="category">
-                                <option value="" disabled selected>Choose a Category</option>
-                                @foreach($category as $category)
-                                    <option value="{{$category-> id}}">{{$category-> category_name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="div-design">
-                            <label for="image">Product Image</label>
-                            <input type="file" name="image" id="image">
-                        </div>
-
-                        <input type="submit" class="btn btn-primary" value="Add Product">
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
