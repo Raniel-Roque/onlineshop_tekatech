@@ -105,10 +105,10 @@
                                 <td>{{$product->price}}</td>
                                 <td>{{$product->discounted_price}}</td>                                    
                                 <td>
-                                    <a href="" class="btn btn-primary">Edit</a>
+                                    <a href="{{url('update_product', $product->id)}}" class="btn btn-primary">Edit</a>
                                 </td>
                                 <td>
-                                    <a href="{{url('/delete_product', $product->id)}}" class="btn btn-danger">Delete</a>
+                                    <a href="{{url('delete_product', $product->id)}}" onclick="return confirm('Are you sure you want to delete {{$product->product_name}}')" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                         @endforeach
