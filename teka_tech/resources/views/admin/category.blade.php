@@ -21,36 +21,19 @@
     <link rel="stylesheet" href="admin/assets/css/style.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="admin/assets/images/favicon.png" />
-    <style type="text/css">
-        .div_center{
-            text-align:center;
-            padding-top:40px;
-        }
-
-        .h2_font{
-            font-size:40px;
-            padding-bottom:40px;
-        }
-
-        .input_color{
-            color:black;
-        }
-
+    <style>
         .center {
-          margin:auto;
-          width:50%;
-          text-align:center;
-          margin-top:30px;
-          border:2px red solid;
+            margin: 30px auto 0 auto;
+            width: 50%;
+            text-align: center;
+            border: 2px red solid;
         }
-
         .custom-table-hover tbody tr {
             background-color: #191c24 !important;
             color: white !important;
         }
         .custom-table-hover tbody tr:hover {
             background-color: #2c2e33 !important;
-            color: white !important;
         }
         .btn-custom {
             padding: 0.5rem 1rem;
@@ -86,11 +69,11 @@
                                 <h2 class="card-title text-center mb-4" style="font-size: 1.5rem; font-weight: 500; color: #6c7293;">Add Category</h2>
                                 <form class="forms-sample" action="{{url('/add_category')}}" method="POST">
                                     @csrf    
-                                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                                    <div class="form-group mb-4">
                                         <label for="category" class="mb-2">Category Name</label>
                                         <div class="input-group">
                                             <input type="text" name="category" class="form-control" id="category" placeholder="Enter Product Category" style="background: #191c24; color: white;" required>
-                                            <button type="submit" class="btn btn-primary btn-custom ms-2" style="margin-left: 0;">+ Add</button>
+                                            <button type="submit" class="btn btn-primary btn-custom ms-2">+ Add</button>
                                         </div>
                                     </div>
                                 </form>
@@ -109,7 +92,7 @@
                                                 <td class="text-center">
                                                     <a href="{{url('delete_category', $data->id)}}"
                                                        onclick="return confirm('Are you sure you want to delete {{$data->category_name}}.')"
-                                                       class="btn btn-danger btn-sm btn-custom" style="background: #dc3545;">
+                                                       class="btn btn-danger btn-sm btn-custom">
                                                         Delete
                                                     </a>
                                                 </td>

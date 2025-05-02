@@ -9,15 +9,11 @@
     <!-- Plugins CSS -->
     <link rel="stylesheet" href="admin/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="admin/assets/vendors/css/vendor.bundle.base.css">
-    <link rel="stylesheet" href="admin/assets/vendors/jvectormap/jquery-jvectormap.css">
-    <link rel="stylesheet" href="admin/assets/vendors/flag-icon-css/css/flag-icon.min.css">
-    <link rel="stylesheet" href="admin/assets/vendors/owl-carousel-2/owl.carousel.min.css">
-    <link rel="stylesheet" href="admin/assets/vendors/owl-carousel-2/owl.theme.default.min.css">
     <link rel="stylesheet" href="admin/assets/css/style.css">
     <link rel="shortcut icon" href="admin/assets/images/favicon.png" />
     
     <!-- Custom Styles -->
-    <style type="text/css">
+    <style>
         .custom-table-hover tbody tr {
             background-color: #191c24 !important;
             color: white !important;
@@ -25,7 +21,6 @@
 
         .custom-table-hover tbody tr:hover {
             background-color: #2c2e33 !important;
-            color: white !important;
         }
 
         .table-cell-ellipsis {
@@ -90,8 +85,8 @@
                               <td class="text-start">${{ number_format($product->discounted_price, 2) }}</td>
                               <td class="text-center" colspan="2">
                                 <div class="d-flex justify-content-center">
-                                  <a href="{{ url('update_product', $product->id) }}" class="btn btn-primary btn-custom me-2" style="background: #0090e7;">Edit</a>
-                                  <a href="{{ url('delete_product', $product->id) }}" onclick="return confirm('Are you sure you want to delete {{$product->product_name}}?')" class="btn btn-danger btn-custom" style="background: #dc3545;">Delete</a>
+                                  <a href="{{ url('update_product', $product->id) }}" class="btn btn-primary btn-custom me-2">Edit</a>
+                                  <a href="{{ url('delete_product', $product->id) }}" onclick="return confirm('Are you sure you want to delete {{$product->product_name}}?')" class="btn btn-danger btn-custom">Delete</a>
                                 </div>
                               </td>
                             </tr>

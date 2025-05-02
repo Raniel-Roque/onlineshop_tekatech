@@ -21,37 +21,20 @@
     <link rel="stylesheet" href="admin/assets/css/style.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="admin/assets/images/favicon.png" />
-    <style type="text/css">
-        .div_center{
-            text-align:center;
-            padding-top:40px;
-        }
-
-        .h2_font{
-            font-size:40px;
-            padding-bottom:40px;
-        }
-
-        .input_color{
-            color:black;
-        }
-
+    <style>
         .center {
-          margin:auto;
-          width:50%;
-          text-align:center;
-          margin-top:30px;
-          border:2px red solid;
+            margin: 30px auto 0 auto;
+            width: 50%;
+            text-align: center;
+            border: 2px red solid;
         }
-
         .div-design {
             padding-bottom: 15px;
         }
         label {
-            display:inline-block;
-            width:200px;
+            display: inline-block;
+            width: 200px;
         }
-        /* Remove number input spinners */
         input[type=number]::-webkit-inner-spin-button,
         input[type=number]::-webkit-outer-spin-button {
             -webkit-appearance: none;
@@ -60,7 +43,6 @@
         input[type=number] {
             -moz-appearance: textfield;
         }
-        /* Select styling */
         select option {
             background: #191c24;
             color: white;
@@ -74,6 +56,10 @@
         }
         select:valid {
             color: white;
+        }
+        .btn-custom {
+            padding: 0.5rem 1rem;
+            border: none;
         }
     </style>
 </head>
@@ -105,23 +91,23 @@
                                 <h2 class="card-title text-center mb-4" style="font-size: 1.5rem; font-weight: 500; color: #6c7293;">Create New Product</h2>
                                 <form class="forms-sample" action="{{url('/add_product')}}" method="POST" enctype="multipart/form-data">
                                     @csrf
-                                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                                    <div class="form-group mb-4">
                                         <label for="product_name">Product Name</label>
                                         <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Enter product name" style="background: #191c24; color: white;" required>
                                     </div>
-                                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                                    <div class="form-group mb-4">
                                         <label for="price">Regular Price</label>
                                         <input type="number" class="form-control" id="price" name="price" placeholder="Enter regular price" style="background: #191c24; color: white;" required>
                                     </div>
-                                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                                    <div class="form-group mb-4">
                                         <label for="discounted_price">Discounted Price</label>
                                         <input type="number" class="form-control" id="discounted_price" name="discounted_price" placeholder="Enter discounted price" style="background: #191c24; color: white;" required>
                                     </div>
-                                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                                    <div class="form-group mb-4">
                                         <label for="description">Product Description</label>
                                         <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter detailed product description" style="background: #191c24; color: white; border: 1px solid #6c7293;" required></textarea>
                                     </div>
-                                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                                    <div class="form-group mb-4">
                                         <label for="category">Product Category</label>
                                         <select class="form-control" id="category" name="category" style="background: #191c24; border: 1px solid #6c7293;" required>
                                             <option value="" disabled selected>Choose a Category</option>
@@ -130,7 +116,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                                    <div class="form-group mb-4">
                                         <label>Product Image</label>
                                         <div class="input-group col-xs-12">
                                             <div class="custom-file" style="width: 100%;">
@@ -191,7 +177,7 @@
                                     </div>
                                     <div class="d-flex justify-content-end">
                                         <button type="submit" class="btn btn-primary me-2">Add Product</button>
-                                        <button class="btn btn-light">Cancel</button>
+                                        <button class="btn btn-light" type="button">Cancel</button>
                                     </div>
                                 </form>
                             </div>

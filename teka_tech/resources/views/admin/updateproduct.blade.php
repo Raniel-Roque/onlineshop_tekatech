@@ -22,35 +22,19 @@
     <link rel="stylesheet" href="admin/assets/css/style.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="admin/assets/images/favicon.png" />
-    <style type="text/css">
-        .div_center{
-            text-align:center;
-            padding-top:40px;
-        }
-
-        .h2_font{
-            font-size:40px;
-            padding-bottom:40px;
-        }
-
-        .input_color{
-            color:black;
-        }
-
+    <style>
         .center {
-          margin:auto;
-          width:50%;
-          text-align:center;
-          margin-top:30px;
-          border:2px red solid;
+            margin: 30px auto 0 auto;
+            width: 50%;
+            text-align: center;
+            border: 2px red solid;
         }
-
         .div-design {
             padding-bottom: 15px;
         }
         label {
-            display:inline-block;
-            width:200px;
+            display: inline-block;
+            width: 200px;
         }
         select option {
             background: #191c24;
@@ -58,6 +42,10 @@
         }
         select option[disabled] {
             color: #6c7293;
+        }
+        .btn-custom {
+            padding: 0.5rem 1rem;
+            border: none;
         }
     </style>
 </head>
@@ -91,23 +79,23 @@
                                 </h2>
                                 <form class="forms-sample" action="{{ url('update_product_confirm/' . $product->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
-                                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                                    <div class="form-group mb-4">
                                         <label for="product_name">Product Name</label>
                                         <input type="text" class="form-control" id="product_name" name="product_name" value="{{$product->product_name}}" style="background: #191c24; color: white;" required>
                                     </div>
-                                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                                    <div class="form-group mb-4">
                                         <label for="price">Regular Price</label>
                                         <input type="number" class="form-control" id="price" name="price" value="{{$product->price}}" style="background: #191c24; color: white;" required>
                                     </div>
-                                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                                    <div class="form-group mb-4">
                                         <label for="discounted_price">Discounted Price</label>
                                         <input type="number" class="form-control" id="discounted_price" name="discounted_price" value="{{$product->discounted_price}}" style="background: #191c24; color: white;" required>
                                     </div>
-                                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                                    <div class="form-group mb-4">
                                         <label for="description">Product Description</label>
                                         <textarea class="form-control" id="description" name="description" rows="4" style="background: #191c24; color: white; border: 1px solid #6c7293;" required>{{$product->description}}</textarea>
                                     </div>
-                                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                                    <div class="form-group mb-4">
                                         <label for="category">Product Category</label>
                                         <select class="form-control" id="category" name="category" style="background: #191c24; border: 1px solid #6c7293;" required>
                                             <option value="" disabled {{ !$categoryExists ? 'selected hidden' : 'hidden' }}>Choose a Category</option>
@@ -116,7 +104,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                                    <div class="form-group mb-4">
                                         <label>Change Product Image</label>
                                         <div class="input-group col-xs-12">
                                             <div class="custom-file" style="width: 100%;">
