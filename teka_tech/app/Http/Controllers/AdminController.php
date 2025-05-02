@@ -65,12 +65,13 @@ class AdminController extends Controller
         $product = product::find($id);
         $category = category::all();
 
-        $categoryName = null;
-        if($product && $product->category) {
-            $categoryName = $product->categoryRelation->category_name;
+        // Check if the product's category exists in the category list
+        $categoryExists = false;
+        if ($product && $product->category) {
+            $categoryExists = $category->contains('id', $product->category);
         }
 
-        return view('admin.updateproduct', compact('product', 'category', 'categoryName'));
+        return view('admin.updateproduct', compact('product', 'category', 'categoryExists'));
     }
 
     public function update_product_confirm($id, Request $request) {

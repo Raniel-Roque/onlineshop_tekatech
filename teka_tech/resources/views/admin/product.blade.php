@@ -89,14 +89,18 @@
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="row">
+                    <div class="col-12">
+                        @if(session()->has('message'))
+                            <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+                                {{session()->get('message')}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-12 grid-margin stretch-card">
                         <div class="card">
-                            @if(session()->has('message'))
-                                <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-bottom: 1.5rem;">
-                                    {{session()->get('message')}}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
-                            @endif
                             <div class="card-body">
                                 <h2 class="card-title text-center mb-4" style="font-size: 1.5rem; font-weight: 500; color: #6c7293;">Create New Product</h2>
                                 <form class="forms-sample" action="{{url('/add_product')}}" method="POST" enctype="multipart/form-data">
@@ -150,38 +154,45 @@
                                             </div>
                                         </div>
                                         <div class="mt-3" id="image-preview-container" style="display: none;">
-                                            <div style="position: relative; display: inline-block;">
-                                                <img id="image-preview" src="#" alt="Product Preview" style="
-                                                    max-width: 200px;
-                                                    max-height: 200px;
-                                                    border-radius: 4px;
-                                                    border: 1px solid #6c7293;
-                                                    object-fit: cover;
-                                                ">
-                                                <button type="button" class="btn btn-danger btn-sm" id="remove-image" style="
-                                                    position: absolute;
-                                                    top: -10px;
-                                                    right: -10px;
-                                                    border-radius: 50%;
-                                                    padding: 0;
-                                                    display: none;
-                                                    background: #dc3545;
-                                                    border: none;
-                                                    color: white;
-                                                    width: 24px;
-                                                    height: 24px;
-                                                    display: flex;
-                                                    align-items: center;
-                                                    justify-content: center;
-                                                    transition: all 0.3s ease;
-                                                ">
-                                                    <i class="mdi mdi-close" style="font-size: 0.875rem; line-height: 1;"></i>
-                                                </button>
+                                            <div style="display: inline-block;">
+                                                <div style="font-size: 0.95rem; color: #6c7293; margin-bottom: 0.5rem; text-align: center; width: 200px;">
+                                                    Image Preview
+                                                </div>
+                                                <div style="position: relative; display: inline-block;">
+                                                    <img id="image-preview" src="#" alt="Product Preview" style="
+                                                        max-width: 200px;
+                                                        max-height: 200px;
+                                                        border-radius: 4px;
+                                                        border: 1px solid #6c7293;
+                                                        object-fit: cover;
+                                                    ">
+                                                    <button type="button" class="btn btn-danger btn-sm" id="remove-image" style="
+                                                        position: absolute;
+                                                        top: -10px;
+                                                        right: -10px;
+                                                        border-radius: 50%;
+                                                        padding: 0;
+                                                        display: none;
+                                                        background: #dc3545;
+                                                        border: none;
+                                                        color: white;
+                                                        width: 24px;
+                                                        height: 24px;
+                                                        display: flex;
+                                                        align-items: center;
+                                                        justify-content: center;
+                                                        transition: all 0.3s ease;
+                                                    ">
+                                                        <i class="mdi mdi-close" style="font-size: 0.875rem; line-height: 1;"></i>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary me-2">Add Product</button>
-                                    <button class="btn btn-light">Cancel</button>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary me-2">Add Product</button>
+                                        <button class="btn btn-light">Cancel</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>

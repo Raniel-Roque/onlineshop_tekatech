@@ -52,6 +52,13 @@
             display:inline-block;
             width:200px;
         }
+        select option {
+            background: #191c24;
+            color: white;
+        }
+        select option[disabled] {
+            color: #6c7293;
+        }
     </style>
 </head>
   <body class="sidebar-icon-only">
@@ -65,54 +72,121 @@
         <!-- partial -->
         <div class="main-panel">
             <div class="content-wrapper">
-                @if(session()->has('message'))
-                  <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{session()->get('message')}}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                  </div>
-                @endif
-                <div class="div_center">
-                    <h2 class="h2_font">Edit Product - {{$product -> product_name}}</h2>
-                    <form action="{{ url('update_product_confirm/' . $product->id) }}" method="POST" enctype="multipart/form-data">
-                        @csrf    
-                        <div class="div-design">
-                            <label for="product_name">Product Name</label>
-                            <input class="input_color" type="text" name="product_name" id="product_name" placeholder="Name of Product" value="{{$product -> product_name}}">
+                <div class="row">
+                    <div class="col-12">
+                        @if(session()->has('message'))
+                            <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+                                {{session()->get('message')}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="card-title text-center mb-4" style="font-size: 1.5rem; font-weight: 500; color: #6c7293;">
+                                    Edit Product - {{$product->product_name}}
+                                </h2>
+                                <form class="forms-sample" action="{{ url('update_product_confirm/' . $product->id) }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                                        <label for="product_name">Product Name</label>
+                                        <input type="text" class="form-control" id="product_name" name="product_name" value="{{$product->product_name}}" style="background: #191c24; color: white;" required>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                                        <label for="price">Regular Price</label>
+                                        <input type="number" class="form-control" id="price" name="price" value="{{$product->price}}" style="background: #191c24; color: white;" required>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                                        <label for="discounted_price">Discounted Price</label>
+                                        <input type="number" class="form-control" id="discounted_price" name="discounted_price" value="{{$product->discounted_price}}" style="background: #191c24; color: white;" required>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                                        <label for="description">Product Description</label>
+                                        <textarea class="form-control" id="description" name="description" rows="4" style="background: #191c24; color: white; border: 1px solid #6c7293;" required>{{$product->description}}</textarea>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                                        <label for="category">Product Category</label>
+                                        <select class="form-control" id="category" name="category" style="background: #191c24; border: 1px solid #6c7293;" required>
+                                            <option value="" disabled {{ !$categoryExists ? 'selected hidden' : 'hidden' }}>Choose a Category</option>
+                                            @foreach($category as $cat)
+                                                <option value="{{$cat->id}}" {{ $product->category == $cat->id ? 'selected' : '' }}>{{$cat->category_name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                                        <label>Change Product Image</label>
+                                        <div class="input-group col-xs-12">
+                                            <div class="custom-file" style="width: 100%;">
+                                                <input type="file" name="image" class="custom-file-input" id="product-image" style="display: none;">
+                                                <label class="custom-file-label" for="product-image" style="
+                                                    background: #191c24;
+                                                    color: #6c7293;
+                                                    border: 1px solid #6c7293;
+                                                    padding: 0.375rem 0.75rem;
+                                                    border-radius: 4px;
+                                                    cursor: pointer;
+                                                    width: 100%;
+                                                    margin-bottom: 0;
+                                                    display: flex;
+                                                    align-items: center;
+                                                    justify-content: space-between;
+                                                ">
+                                                    <span id="file-name">Choose file</span>
+                                                    <i class="mdi mdi-upload" style="font-size: 1.25rem;"></i>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex mt-3" style="gap: 24px;">
+                                            <!-- Current Image -->
+                                            <div style="text-align: center;">
+                                                <div style="font-size: 0.95rem; color: #6c7293; margin-bottom: 0.5rem;">Current Image</div>
+                                                <img src="product/{{$product->image}}" alt="{{$product->product_name}}" style="max-width: 200px; max-height: 200px; border-radius: 4px; border: 1px solid #6c7293; object-fit: cover;">
+                                            </div>
+                                            <!-- Preview Image -->
+                                            <div id="image-preview-container" style="display: none; text-align: center;">
+                                                <div style="font-size: 0.95rem; color: #6c7293; margin-bottom: 0.5rem;">New Image Preview</div>
+                                                <div style="position: relative; display: inline-block;">
+                                                    <img id="image-preview" src="#" alt="Product Preview" style="
+                                                        max-width: 200px;
+                                                        max-height: 200px;
+                                                        border-radius: 4px;
+                                                        border: 1px solid #6c7293;
+                                                        object-fit: cover;
+                                                    ">
+                                                    <button type="button" class="btn btn-danger btn-sm" id="remove-image" style="
+                                                        position: absolute;
+                                                        top: -10px;
+                                                        right: -10px;
+                                                        border-radius: 50%;
+                                                        padding: 0;
+                                                        background: #dc3545;
+                                                        border: none;
+                                                        color: white;
+                                                        width: 24px;
+                                                        height: 24px;
+                                                        display: flex;
+                                                        align-items: center;
+                                                        justify-content: center;
+                                                        transition: all 0.3s ease;
+                                                        display: none;
+                                                    ">
+                                                        <i class="mdi mdi-close" style="font-size: 0.875rem; line-height: 1;"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary me-2">Update Product</button>
+                                        <a href="{{ url('/manage_product') }}" class="btn btn-light">Cancel</a>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div class="div-design">
-                            <label for="price">Product Price</label>
-                            <input class="input_color" type="number" name="price" id="price" placeholder="Price of Product" value="{{$product -> price}}">
-                        </div>
-                        <div class="div-design">
-                            <label for="discounted_price">Product Discounted Price</label>
-                            <input class="input_color" type="number" name="discounted_price" id="discounted_price" placeholder="Discounted Price of Product" value="{{$product -> discounted_price}}">
-                        </div>
-                        <div class="div-design">
-                            <label for="description">Product Description</label>
-                            <input class="input_color" type="text" name="description" id="description" placeholder="Description of Product" value="{{$product -> description}}">
-                        </div>
-                        <div class="div-design">
-                            <label for="category">Product Category</label>
-                            <select class="input_color" name="category" id="category">
-                                <option value="{{$categoryName}}" selected>{{$categoryName}}</option>
-                                @foreach($category as $category)
-                                    <option value="{{$category-> id}}">{{$category-> category_name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="div-design">
-                            <label for="image">Current Product Image</label>
-                            <img style="margin:auto" height="100" width="100" src="product/{{$product->image}}" alt="{{$product -> product_name}}">
-                        </div>
-
-                        <div class="div-design">
-                            <label for="image">Change Product Image</label>
-                            <input type="file" name="image" id="image">
-                        </div>
-
-                        <input type="submit" class="btn btn-primary" value="Update Product">
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -121,7 +195,55 @@
       <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->
-    <!-- plugins:js -->
     @include('admin.script')
+    <script>
+        document.getElementById('product-image').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const fileName = document.getElementById('file-name');
+            const preview = document.getElementById('image-preview');
+            const container = document.getElementById('image-preview-container');
+            const removeButton = document.getElementById('remove-image');
+
+            if (file) {
+                fileName.textContent = file.name;
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    container.style.display = 'block';
+                    removeButton.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('remove-image').addEventListener('click', function() {
+            const fileInput = document.getElementById('product-image');
+            const fileName = document.getElementById('file-name');
+            const preview = document.getElementById('image-preview');
+            const container = document.getElementById('image-preview-container');
+            const removeButton = document.getElementById('remove-image');
+
+            fileInput.value = '';
+            fileName.textContent = 'Choose file';
+            preview.src = '#';
+            container.style.display = 'none';
+            removeButton.style.display = 'none';
+        });
+
+        document.getElementById('remove-image').addEventListener('mouseover', function() {
+            this.style.background = '#c82333';
+        });
+
+        document.getElementById('remove-image').addEventListener('mouseout', function() {
+            this.style.background = '#dc3545';
+        });
+
+        // Handle category select color
+        const categorySelect = document.getElementById('category');
+        categorySelect.style.color = categorySelect.value === '' ? '#6c7293' : 'white';
+        categorySelect.addEventListener('change', function() {
+            this.style.color = this.value === '' ? '#6c7293' : 'white';
+        });
+    </script>
   </body>
 </html>

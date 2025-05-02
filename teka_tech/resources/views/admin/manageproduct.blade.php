@@ -83,7 +83,9 @@
                               <td class="text-center">{{$product->id}}</td>
                               <td class="text-center">{{$product->product_name}}</td>
                               <td class="text-start table-cell-ellipsis">{{$product->description}}</td>
-                              <td class="text-center">{{$product->categoryRelation->category_name}}</td>
+                              <td class="text-center">
+                                {{ $product->categoryRelation ? $product->categoryRelation->category_name : 'N/A' }}
+                              </td>
                               <td class="text-start">${{ number_format($product->price, 2) }}</td>
                               <td class="text-start">${{ number_format($product->discounted_price, 2) }}</td>
                               <td class="text-center" colspan="2">
