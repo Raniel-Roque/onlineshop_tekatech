@@ -4,7 +4,6 @@
 - Raniel Christian Roque  
 - Calvin Lloyd Lising  
 - John Mark Prado
-- Manalo Marino
 - Lawrence Dela Pena
 - Abigail Domingo
 - Lucila Baluyut
